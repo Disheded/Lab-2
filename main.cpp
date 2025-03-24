@@ -50,13 +50,13 @@ public:
 };
 
 int main() {
-    int size;
+    int number_of_systems;
     cout << "Enter the number of monitoring systems: ";
-    cin >> size;
+    cin >> number_of_systems;
 
-    MonitoringSystem *systems = new MonitoringSystem[size];
+    MonitoringSystem *systems = new MonitoringSystem[number_of_systems];
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < number_of_systems; i++) {
         cout << endl << "Enter name for system " << i + 1 << ": " << endl;
         cin >> systems[i].name;
         systems[i].input_sensor();
@@ -64,26 +64,26 @@ int main() {
     }
 
     cout << "Monitoring Systems: " << endl;
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < number_of_systems; i++) {
         cout << "System " << i + 1 << ": " << endl;
         systems[i].display();
     }
 
-    int number_of_system;
+    int number_of_changing_system;
     cout << endl << "Enter index of system to modify: ";
-    cin >> number_of_system;
-    number_of_system--;
-    if (number_of_system >= 0 && number_of_system < size) {
+    cin >> number_of_changing_system;
+    number_of_changing_system--;
+    if (number_of_changing_system >= 0 && number_of_changing_system < number_of_systems) {
         cout << "Enter new name: ";
-        cin >> systems[number_of_system].name;
-        systems[number_of_system].input_sensor();
-        systems[number_of_system].setSnsorsCost();
+        cin >> systems[number_of_changing_system].name;
+        systems[number_of_changing_system].input_sensor();
+        systems[number_of_changing_system].setSnsorsCost();
     } else {
         cout << "Error... Input the right number!" << endl;
     }
 
     cout << "Updated Monitoring Systems: " << endl;
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < number_of_systems; i++) {
         cout << "System " << i + 1 << ": " << endl;
         systems[i].display();
     }
