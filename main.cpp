@@ -69,9 +69,17 @@ public:
             books.push_back(book);
         }
     }
-    void reciveBook(){
-
-        };
+    bool reciveBook(int id){
+        if (size(books)>=id) {
+            if (books[id-1].recive()) {
+                cout << "Yoy recive this book";
+                return true;
+            }
+        } else {
+            cout << "Error... You couldnt recive this book, choose another!" << endl;
+            return false;
+        }
+    };
 
 
 };
@@ -166,7 +174,7 @@ int main() {
             cout << "System " << i + 1 << ": " << endl;
             systems[i].display();
         } if (number_of_exercises == 2) {
-            
+
 
 
 
