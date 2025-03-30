@@ -9,7 +9,7 @@ private:
     string status;
     int time;
 public:
-    Book(int id, string name) {
+    Book(int id, string title) {
         this->id = id;
         this->title = title;
         this->status = "avaible";
@@ -17,7 +17,7 @@ public:
     }
 
     void showBook() {
-        cout << "[" << id << "] " << title << " (" << status << ")";
+        cout << "Book id: " << id << ", title " << title << " (" << status << ")" << endl;
         if (status == "issude") {
             cout << " - due in " << time << " days";
         }
@@ -52,7 +52,7 @@ public:
 
     void littleTime() {
         if (time <= 2) {
-            cout << "[" << id << "] " << title << " (" << status << ")";
+            cout << "Book id: " << id << ", title " << title << " (" << status << ")" << endl;
             cout << "You have only " << time << " days tp bring book back";
         }
     }
@@ -79,7 +79,20 @@ public:
             cout << "Error... You couldnt recive this book, choose another!" << endl;
             return false;
         }
-    };
+    }
+
+    void showAllBooks() {
+        for (int i = 0; i < size(books); i++) {
+            books[i].showBook();
+        }
+    }
+
+    void reduceAllBooks(int left_time) {
+        for (int i = 0; i < size(books); i++) {
+            books[i].reduceTime(left_time);
+        }
+    }
+
 
 
 };
@@ -134,7 +147,7 @@ public:
 
 int main() {
     int number_of_exercises;
-    cout << "Enter number of exercise"<<endl;
+    cout << "Enter number of exercise: ";
     cin >> number_of_exercises;
     if (number_of_exercises == 1) {
         int number_of_systems;
@@ -173,7 +186,23 @@ int main() {
         for (int i = 0; i < number_of_systems; i++) {
             cout << "System " << i + 1 << ": " << endl;
             systems[i].display();
-        } if (number_of_exercises == 2) {
+        }
+    }
+
+        if (number_of_exercises == 2) {
+            Library lib;
+            cout << "Add numbers of new book: ";
+            int number_of_books;
+            cin >> number_of_books;
+            for (int i = 0; i < number_of_books; i++) {
+                cout << endl << "Enter name for book " << i + 1 << ": " << endl;
+                string name;
+                cin >> name;
+                lib.addBook(Book(i, name));
+            }
+            lib.showAllBooks();
+
+
 
 
 
@@ -186,6 +215,6 @@ int main() {
         } else {
             cout << "Error... out of range";
         }
-    }
+
     return 0;
 }
