@@ -87,9 +87,9 @@ public:
         }
     }
 
-    void reduceAllBooks(int left_time) {
+    void reduceAllBooks() {
         for (int i = 0; i < size(books); i++) {
-            books[i].reduceTime(left_time);
+            books[i].reduceTime(1);
         }
     }
 
@@ -192,8 +192,16 @@ int main() {
         if (number_of_exercises == 2) {
             Library lib;
             cout << "Add numbers of new book: ";
+
             int number_of_books;
             cin >> number_of_books;
+            if (number_of_books>14){
+                while (number_of_books > 14) {
+                    cout << "Error... \nOut of range \nEnter number of books: ";
+                    cin >> number_of_books;
+                }
+            }
+
             for (int i = 0; i < number_of_books; i++) {
                 cout << endl << "Enter name for book " << i + 1 << ": " << endl;
                 string name;
@@ -201,6 +209,20 @@ int main() {
                 lib.addBook(Book(i, name));
             }
             lib.showAllBooks();
+            cout << "P.S. All actions spend time" << endl;
+            cout << "What you want: 0 - Add book, 1 - Recive book, 2 - Issue book" << endl;
+            int action;
+            cin >> action;
+            switch (action) {
+                case 0:
+                    string name;
+                    cin >> name;
+                    lib.addBook(Book(number_of_books, name));
+                    number_of_books++;
+                    break;
+                case 1:
+                    cout << "f";
+            }
 
 
 
@@ -213,7 +235,7 @@ int main() {
 
 
         } else {
-            cout << "Error... out of range";
+            cout << "Error... \nIncorrect number";
         }
 
     return 0;
