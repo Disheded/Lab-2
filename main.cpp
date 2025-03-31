@@ -13,7 +13,7 @@ public:
         this->id = id;
         this->title = title;
         this->status = "avaible";
-        this->time = 0;
+        this->time = 10000000;
     }
 
     void showBook() {
@@ -71,13 +71,22 @@ public:
     }
     bool reciveBook(int id){
         if (size(books)>=id) {
-            if (books[id-1].recive()) {
+            if (books[id].recive()) {
                 cout << "Yoy recive this book";
                 return true;
             }
         } else {
             cout << "Error... You couldnt recive this book, choose another!" << endl;
             return false;
+        }
+    }
+
+    bool issue(int id) {
+        if (size(books)>=id) {
+            if (books[id].issue()) {
+                cout << "Yoy issue this book" << endl;
+                return true;
+            }
         }
     }
 
@@ -93,6 +102,11 @@ public:
         }
     }
 
+    void littleAllTime() {
+        for (int i = 0; i < size(books); i++) {
+            books[i].littleTime();
+        }
+    }
 
 
 };
@@ -194,6 +208,7 @@ int main() {
             cout << "Add numbers of new book: ";
 
             int number_of_books;
+            int &nn = number_of_books;
             cin >> number_of_books;
             if (number_of_books>14){
                 while (number_of_books > 14) {
@@ -205,23 +220,39 @@ int main() {
             for (int i = 0; i < number_of_books; i++) {
                 cout << endl << "Enter name for book " << i + 1 << ": " << endl;
                 string name;
-                cin >> name;
+                cin.ignore();
+                getline(cin, name);
                 lib.addBook(Book(i, name));
             }
             lib.showAllBooks();
             cout << "P.S. All actions spend time" << endl;
             cout << "What you want: 0 - Add book, 1 - Recive book, 2 - Issue book" << endl;
+
+
+
+
             int action;
             cin >> action;
             switch (action) {
-                case 0:
+                case 0: {
                     string name;
-                    cin >> name;
+                    cin.ignore();
+                    getline(cin, name);
                     lib.addBook(Book(number_of_books, name));
-                    number_of_books++;
+                    nn++;
+                    lib.reduceAllBooks();
+                    lib.littleAllTime();
                     break;
-                case 1:
-                    cout << "f";
+                }
+                case 1: {
+
+                    int id;
+                    cout << "Enter book id which you want to recive: ";
+                    cin >> id;
+                    lib.reciveBook(id);
+                    lib.showAllBooks();
+                }
+
             }
 
 
