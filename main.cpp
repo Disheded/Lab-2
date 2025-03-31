@@ -52,10 +52,10 @@ public:
 
     void littleTime() {
         if (time <= 2) {
-            cout << "Book id: " << id << ", title " << title << " (" << status << ")" << endl;
-            cout << "You have only " << time << " days tp bring book back";
+            cout << "\nYou have only " << time << " days to bring "<< title << " back";
         }
     }
+    virtual ~Book() {}
 };
 
 class Library {
@@ -81,11 +81,13 @@ public:
         }
     }
 
-    bool issue(int id) {
+    bool issue(int id, int time) {
         if (size(books)>=id) {
-            if (books[id].issue()) {
+            if (books[id].issue(time)) {
                 cout << "Yoy issue this book" << endl;
                 return true;
+            } else {
+                cout << "Error... You couldnt issue this book" << endl;
             }
         }
     }
@@ -229,7 +231,7 @@ int main() {
             cout << "What you want: 0 - Add book, 1 - Recive book, 2 - Issue book" << endl;
 
 
-
+            lib.issue(0, 0);
 
             int action;
             cin >> action;
@@ -240,6 +242,7 @@ int main() {
                     getline(cin, name);
                     lib.addBook(Book(number_of_books, name));
                     nn++;
+                    lib.showAllBooks();
                     lib.reduceAllBooks();
                     lib.littleAllTime();
                     break;
@@ -251,16 +254,22 @@ int main() {
                     cin >> id;
                     lib.reciveBook(id);
                     lib.showAllBooks();
+                    lib.reduceAllBooks();
+                    lib.littleAllTime();
                 }
-
+                case 2: {
+                    int id;
+                    int time;
+                    cout << "Enter book id which you want to issue: ";
+                    cin >> id;
+                    cout << "Enter time to issue: ";
+                    cin >> time;
+                    lib.issue(id, time);
+                    lib.showAllBooks();
+                    lib.reduceAllBooks();
+                    lib.littleAllTime();
+                }
             }
-
-
-
-
-
-
-
 
 
 
