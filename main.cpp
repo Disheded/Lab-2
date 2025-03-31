@@ -72,7 +72,7 @@ public:
     bool reciveBook(int id){
         if (size(books)>=id) {
             if (books[id].recive()) {
-                cout << "Yoy recive this book";
+                cout << "Yoy recive this book\n";
                 return true;
             }
         } else {
@@ -228,51 +228,60 @@ int main() {
             }
             lib.showAllBooks();
             cout << "P.S. All actions spend time" << endl;
-            cout << "What you want: 0 - Add book, 1 - Recive book, 2 - Issue book" << endl;
+            while (true) {
 
 
-            lib.issue(0, 0);
+                cout << "What you want: 0 - Add book, 1 - Recive book, 2 - Issue book" << endl;
 
-            int action;
-            cin >> action;
-            switch (action) {
-                case 0: {
-                    string name;
-                    cin.ignore();
-                    getline(cin, name);
-                    lib.addBook(Book(number_of_books, name));
-                    nn++;
-                    lib.showAllBooks();
-                    lib.reduceAllBooks();
-                    lib.littleAllTime();
+
+                int action;
+                cin >> action;
+                switch (action) {
+                    case 0: {
+                        string name;
+                        cout << "\nEnter book name: ";
+                        cin.ignore();
+                        getline(cin, name);
+                        lib.addBook(Book(number_of_books, name));
+                        nn++;
+                        lib.showAllBooks();
+                        lib.reduceAllBooks();
+                        lib.littleAllTime();
+                        break;
+                    }
+                    case 1: {
+
+                        int id;
+                        cout << "Enter book id which you want to recive: ";
+                        cin >> id;
+                        lib.reciveBook(id);
+                        lib.showAllBooks();
+                        lib.reduceAllBooks();
+                        lib.littleAllTime();
+                        break;
+                    }
+                    case 2: {
+                        int id;
+                        int time;
+                        cout << "Enter book id which you want to issue: ";
+                        cin >> id;
+                        cout << "Enter time to issue: ";
+                        cin >> time;
+                        lib.issue(id, time);
+                        lib.showAllBooks();
+                        lib.reduceAllBooks();
+                        lib.littleAllTime();
+                        break;
+                    }
+                }
+                cout << "\n \nNext y/n? " << endl;
+                string choice;
+                cin >> choice;
+                if (choice == "n" || choice == "N") {
                     break;
                 }
-                case 1: {
 
-                    int id;
-                    cout << "Enter book id which you want to recive: ";
-                    cin >> id;
-                    lib.reciveBook(id);
-                    lib.showAllBooks();
-                    lib.reduceAllBooks();
-                    lib.littleAllTime();
-                }
-                case 2: {
-                    int id;
-                    int time;
-                    cout << "Enter book id which you want to issue: ";
-                    cin >> id;
-                    cout << "Enter time to issue: ";
-                    cin >> time;
-                    lib.issue(id, time);
-                    lib.showAllBooks();
-                    lib.reduceAllBooks();
-                    lib.littleAllTime();
-                }
             }
-
-
-
 
         } else {
             cout << "Error... \nIncorrect number";
